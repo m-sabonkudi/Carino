@@ -2,7 +2,7 @@ from datetime import datetime
 from flask_mail import Message
 
 
-CONTRACT_LINK = "https://testnet.explorer.onino.io/address/0x8A471A793468d85E1BD56fFe7d5A70D3fEa65621?tab=txs"
+CONTRACT_LINK = "https://testnet.explorer.onino.io/address/0x8A471A793468d85E1BD56fFe7d5A70D3fEa65621"
 
 
 def send_transaction_mail(title, recipients, content, product):
