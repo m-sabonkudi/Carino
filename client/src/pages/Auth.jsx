@@ -184,7 +184,7 @@ const Auth = () => {
           console.log("Network:", network);
 
           if (network.chainId !== 211223n) {
-            toast.error("Please switch to the ONINO network");
+            toast.error("Please switch to the ONINO test network");
             return;
           }
 
