@@ -96,7 +96,7 @@ def send_transaction_mail(title, recipients, content, product):
         <body>
             <div class="container">
                 <div class="brand">
-                    <a href="/" class="brand-link">
+                    <a href="https://carino-three.vercel.app/" class="brand-link">
                         <div>Carino</div>
                     </a>
                 </div>
@@ -215,7 +215,7 @@ def send_contact_email(title, recipients, content):
         <body>
             <div class="container">
                 <div class="brand">
-                    <a href="/" class="brand-link">
+                    <a href="https://carino-three.vercel.app/" class="brand-link">
                         <div>Carino</div>
                     </a>
                 </div>
