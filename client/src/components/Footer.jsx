@@ -55,7 +55,7 @@ const Footer = () => {
               className="text-muted-foreground hover:text-primary transition-colors duration-200">
               <FaXTwitter className="w-5 h-5" />
             </a>
-            <a href="https://www.github.com/m-sabonkudi" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            <a href="https://github.com/m-sabonkudi/Carino" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
               className="text-muted-foreground hover:text-primary transition-colors duration-200">
               <FaGithub className="w-5 h-5" />
             </a>
