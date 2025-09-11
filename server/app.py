@@ -282,7 +282,7 @@ def register_user():
             "address": address
         }
 
-        msg = Message("Pyman Ethereum Marketplace OTP", recipients=[email])
+        msg = Message("Carino OTP", recipients=[email])
         msg.html = f"<h1>Your OTP: {otp}</h1><p>Use it to log in. It expires in 5 minutes.</p>"
         mail.send(msg)
     except Exception as e:
@@ -398,18 +398,18 @@ def verify_otp():
         </head>
         <body>
             <div class="container">
-                <div class="brand">Pyman</div>
+                <div class="brand">Carino</div>
 
-                <div class="title">🎉 Welcome to Pyman!</div>
+                <div class="title">🎉 Welcome to Carino!</div>
 
                 <div class="content">
-                    <p>Thanks for signing up to <b>Pyman</b>, a multivendor car marketplace built on the Ethereum blockchain.</p>
+                    <p>Thanks for signing up to <b>Carino</b>, a car bidding platform built on the ONINO blockchain.</p>
                     <p>You can check out our smart contract here:<br>
                         <a href="{CONTRACT_LINK}" target="_blank">{CONTRACT_LINK}</a>
                     </p>
                     <p>If you’re a vendor (or want to become one), you can update your account by clicking below:</p>
                     <p>
-                        <a href="https://multivendor-ethereum-marketplace.vercel.app/account" 
+                        <a href="https://carino-three.vercel.app/account" 
                         class="button" target="_blank">
                         Account Page
                         </a>
@@ -417,7 +417,7 @@ def verify_otp():
                 </div>
 
                 <div class="footer">
-                    <p>Pyman &copy; {datetime.now().year}</p>
+                    <p>Carino &copy; {datetime.now().year}</p>
                 </div>
             </div>
         </body>
