@@ -4,6 +4,8 @@
 
 ## [🔍 View on Explorer](https://testnet.explorer.onino.io/address/0x8A471A793468d85E1BD56fFe7d5A70D3fEa65621)
 
+Component Diagram [Diagram](assets/diagram.png)
+
 ## Table of Contents
 
 - [Vision](#vision)
@@ -13,7 +15,6 @@
 - [Why Carino?](#why-carino)
 - [Key Features](#key-features)
 - [How It Works (user flow)](#how-it-works-user-flow)
-- [Screenshots](#screenshots)
 - [Getting Started (for users)](#getting-started-for-users)
 - [For Vendors](#for-vendors)
 - [Tech Stack (short)](#tech-stack-short)
@@ -122,12 +123,6 @@ This flow keeps both parties protected and auditable on-chain.
 
 ---
 
-## Screenshots
-
-- Home / Browse: ![Home](assets/home.png)
-
-
----
 
 ## Getting Started (for users)
 
@@ -138,9 +133,6 @@ These steps are written for shoppers who want to use the Carino platform.
 - Install the MetaMask web3 wallet extension in your browser.
 - Connect your wallet to the correct network (onino testnet).
 
-Watch video on creating an account:
-
-[![Sign Up Video](https://img.youtube.com/vi/RoQtItf76W4/hqdefault.jpg)](https://youtu.be/RoQtItf76W4)
 
 ### 2. Browse and choose
 
