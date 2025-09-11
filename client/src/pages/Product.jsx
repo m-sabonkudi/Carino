@@ -267,7 +267,7 @@ const Product = () => {
                 <span>{product.year}</span>
               </div>
             )}
-            {product.mileage && (
+            {product.mileage >= 0 && (
               <div className="flex items-center gap-2">
                 <Gauge className="w-4 h-4" />
                 <span>{product.mileage.toLocaleString()} km</span>
