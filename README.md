@@ -4,7 +4,7 @@
 
 ## [🔍 View on Explorer](https://testnet.explorer.onino.io/address/0x8A471A793468d85E1BD56fFe7d5A70D3fEa65621)
 
-Component Diagram [Diagram](assets/diagram.png)
+Component Diagram ![Diagram](assets/diagram.png)
 
 ## Table of Contents
 
