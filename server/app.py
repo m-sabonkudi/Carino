@@ -258,10 +258,195 @@ def user_exists(address):
 
 
 
-@app.route('/api/register-user', methods=['POST'])
-def register_user():
-    data = request.get_json()
+# @app.route('/api/register-user', methods=['POST'])
+# def register_user():
+#     data = request.get_json()
 
+#     name = data.get('name')
+#     email = data.get('email').lower()
+#     address = data.get('address')
+
+#     user = User.query.filter_by(email=email).first()
+#     if user:
+#         return jsonify({"status": False, "message": "Email has been taken."})
+    
+#     try:
+#         secret = pyotp.random_base32()
+#         totp = pyotp.TOTP(secret, interval=300)  # 5 mins
+#         otp = totp.now()
+#         session["otp_info"] = {
+#             "secret": secret,
+#             "created_at": datetime.now(timezone.utc).isoformat(),
+#             "name": name,
+#             "email": email,
+#             "address": address
+#         }
+
+#         # msg = Message("Carino OTP", recipients=[email])
+#         # msg.html = f"<h1>Your OTP: {otp}</h1><p>Use it to log in. It expires in 5 minutes.</p>"
+#         # mail.send(msg)
+#     except Exception as e:
+#         return jsonify({"status": False, "message": str(e)})
+#     else:
+#         return jsonify({"status": True, 'message': 'OTP has been sent to your email.'}), 200
+    
+
+
+# @app.route('/api/verify-otp', methods=['POST'])
+# def verify_otp():
+#     data = request.get_json()
+#     email = data.get('email')
+#     otp_input = data.get('otp')
+
+#     otp_info = session.get('otp_info')
+
+#     if not all([otp_info]):
+#         return jsonify({'status': False, 'message': 'OTP session not found'}), 400
+
+#     created_at = otp_info['created_at']
+#     secret = otp_info['secret']
+#     email = otp_info['email']
+#     name = otp_info['name']
+#     address = otp_info['address']
+
+#     # Check if OTP is expired
+#     created_time = datetime.fromisoformat(created_at)
+#     if datetime.now(timezone.utc) > created_time + timedelta(minutes=5):
+#         session.clear()
+#         return jsonify({'status': False, 'message': 'OTP has expired'}), 400
+
+#     # Verify OTP
+#     totp = pyotp.TOTP(secret, interval=300)
+#     if totp.verify(otp_input):
+#         msg = Message(subject="🎉 Signed Up!", recipients=[email])
+#         msg.html = f"""
+#         <!DOCTYPE html>
+#         <html>
+#         <head>
+#             <meta charset="UTF-8">
+#             <title>Signed Up!</title>
+#             <style>
+#                 body {{
+#                     margin: 0;
+#                     padding: 0;
+#                     background-color: #f9fafb;
+#                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+#                     color: #1f2937;
+#                 }}
+#                 .container {{
+#                     max-width: 600px;
+#                     margin: 40px auto;
+#                     background: #ffffff;
+#                     padding: 40px;
+#                     border-radius: 12px;
+#                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+#                 }}
+#                 .brand {{
+#                     display: flex;
+#                     align-items: center;
+#                     gap: 10px;
+#                     margin-bottom: 30px;
+#                     font-weight: 700;
+#                     font-size: 24px;
+#                     color: #1d4ed8;
+#                 }}
+#                 .title {{
+#                     font-size: 20px;
+#                     font-weight: 600;
+#                     margin-bottom: 20px;
+#                 }}
+#                 .content {{
+#                     font-size: 16px;
+#                     line-height: 1.6;
+#                     margin-bottom: 30px;
+#                 }}
+#                 .button {{
+#                     display: inline-block;
+#                     padding: 12px 20px;
+#                     font-size: 16px;
+#                     font-weight: 600;
+#                     color: #fff;
+#                     background-color: #1d4ed8;
+#                     border-radius: 8px;
+#                     text-decoration: none;
+#                 }}
+#                 .button:hover {{
+#                     background-color: #1e40af;
+#                 }}
+#                 .footer {{
+#                     text-align: center;
+#                     font-size: 13px;
+#                     color: #6b7280;
+#                     margin-top: 40px;
+#                 }}
+#                 @media (prefers-color-scheme: dark) {{
+#                     body {{
+#                         background-color: #111827;
+#                         color: #f3f4f6;
+#                     }}
+#                     .container {{
+#                         background-color: #1f2937;
+#                     }}
+#                     .button {{
+#                         background-color: #2563eb;
+#                     }}
+#                     .footer {{
+#                         color: #9ca3af;
+#                     }}
+#                 }}
+#             </style>
+#         </head>
+#         <body>
+#             <div class="container">
+#                 <div class="brand">Carino</div>
+
+#                 <div class="title">🎉 Welcome to Carino!</div>
+
+#                 <div class="content">
+#                     <p>Thanks for signing up to <b>Carino</b>, a car bidding platform built on the ONINO blockchain.</p>
+#                     <p>You can check out our smart contract here:<br>
+#                         <a href="{CONTRACT_LINK}" target="_blank">{CONTRACT_LINK}</a>
+#                     </p>
+#                     <p>If you’re a vendor (or want to become one), you can update your account by clicking below:</p>
+#                     <p>
+#                         <a href="https://carino-three.vercel.app/account" 
+#                         class="button" target="_blank">
+#                         Account Page
+#                         </a>
+#                     </p>
+#                 </div>
+
+#                 <div class="footer">
+#                     <p>Carino &copy; {datetime.now().year}</p>
+#                 </div>
+#             </div>
+#         </body>
+#         </html>
+#         """
+
+#         mail.send(msg)
+#         session.clear()
+#         new_user = User(
+#             name=name.capitalize(),
+#             email=email,
+#             address=address.lower(),
+#         )
+#         db.session.add(new_user)
+#         db.session.commit()
+
+#         folder = os.path.join(os.getcwd(), 'images', new_user.address)
+#         os.makedirs(folder, exist_ok=True)
+
+#         return jsonify({'status': True, 'message': 'OTP verified successfully'}), 200
+#     else:
+#         return jsonify({'status': False, 'message': 'Invalid OTP'}), 400
+
+
+
+@app.route('/api/create-user', methods=['POST'])
+def verify_otp():
+    data = request.get_json()
+    
     name = data.get('name')
     email = data.get('email').lower()
     address = data.get('address')
@@ -270,176 +455,133 @@ def register_user():
     if user:
         return jsonify({"status": False, "message": "Email has been taken."})
     
-    try:
-        secret = pyotp.random_base32()
-        totp = pyotp.TOTP(secret, interval=300)  # 5 mins
-        otp = totp.now()
-        session["otp_info"] = {
-            "secret": secret,
-            "created_at": datetime.now(timezone.utc).isoformat(),
-            "name": name,
-            "email": email,
-            "address": address
-        }
 
-        msg = Message("Carino OTP", recipients=[email])
-        msg.html = f"<h1>Your OTP: {otp}</h1><p>Use it to log in. It expires in 5 minutes.</p>"
-        mail.send(msg)
-    except Exception as e:
-        return jsonify({"status": False, "message": str(e)})
-    else:
-        return jsonify({"status": True, 'message': 'OTP has been sent to your email.'}), 200
-    
-
-
-@app.route('/api/verify-otp', methods=['POST'])
-def verify_otp():
-    data = request.get_json()
-    email = data.get('email')
-    otp_input = data.get('otp')
-
-    otp_info = session.get('otp_info')
-
-    if not all([otp_info]):
-        return jsonify({'status': False, 'message': 'OTP session not found'}), 400
-
-    created_at = otp_info['created_at']
-    secret = otp_info['secret']
-    email = otp_info['email']
-    name = otp_info['name']
-    address = otp_info['address']
-
-    # Check if OTP is expired
-    created_time = datetime.fromisoformat(created_at)
-    if datetime.now(timezone.utc) > created_time + timedelta(minutes=5):
-        session.clear()
-        return jsonify({'status': False, 'message': 'OTP has expired'}), 400
-
-    # Verify OTP
-    totp = pyotp.TOTP(secret, interval=300)
-    if totp.verify(otp_input):
-        msg = Message(subject="🎉 Signed Up!", recipients=[email])
-        msg.html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Signed Up!</title>
-            <style>
+    msg = Message(subject="🎉 Signed Up!", recipients=[email])
+    msg.html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Signed Up!</title>
+        <style>
+            body {{
+                margin: 0;
+                padding: 0;
+                background-color: #f9fafb;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #1f2937;
+            }}
+            .container {{
+                max-width: 600px;
+                margin: 40px auto;
+                background: #ffffff;
+                padding: 40px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }}
+            .brand {{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 30px;
+                font-weight: 700;
+                font-size: 24px;
+                color: #1d4ed8;
+            }}
+            .title {{
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }}
+            .content {{
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 30px;
+            }}
+            .button {{
+                display: inline-block;
+                padding: 12px 20px;
+                font-size: 16px;
+                font-weight: 600;
+                color: #fff;
+                background-color: #1d4ed8;
+                border-radius: 8px;
+                text-decoration: none;
+            }}
+            .button:hover {{
+                background-color: #1e40af;
+            }}
+            .footer {{
+                text-align: center;
+                font-size: 13px;
+                color: #6b7280;
+                margin-top: 40px;
+            }}
+            @media (prefers-color-scheme: dark) {{
                 body {{
-                    margin: 0;
-                    padding: 0;
-                    background-color: #f9fafb;
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    color: #1f2937;
+                    background-color: #111827;
+                    color: #f3f4f6;
                 }}
                 .container {{
-                    max-width: 600px;
-                    margin: 40px auto;
-                    background: #ffffff;
-                    padding: 40px;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-                }}
-                .brand {{
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 30px;
-                    font-weight: 700;
-                    font-size: 24px;
-                    color: #1d4ed8;
-                }}
-                .title {{
-                    font-size: 20px;
-                    font-weight: 600;
-                    margin-bottom: 20px;
-                }}
-                .content {{
-                    font-size: 16px;
-                    line-height: 1.6;
-                    margin-bottom: 30px;
+                    background-color: #1f2937;
                 }}
                 .button {{
-                    display: inline-block;
-                    padding: 12px 20px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: #fff;
-                    background-color: #1d4ed8;
-                    border-radius: 8px;
-                    text-decoration: none;
-                }}
-                .button:hover {{
-                    background-color: #1e40af;
+                    background-color: #2563eb;
                 }}
                 .footer {{
-                    text-align: center;
-                    font-size: 13px;
-                    color: #6b7280;
-                    margin-top: 40px;
+                    color: #9ca3af;
                 }}
-                @media (prefers-color-scheme: dark) {{
-                    body {{
-                        background-color: #111827;
-                        color: #f3f4f6;
-                    }}
-                    .container {{
-                        background-color: #1f2937;
-                    }}
-                    .button {{
-                        background-color: #2563eb;
-                    }}
-                    .footer {{
-                        color: #9ca3af;
-                    }}
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="brand">Carino</div>
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="brand">Carino</div>
 
-                <div class="title">🎉 Welcome to Carino!</div>
+            <div class="title">🎉 Welcome to Carino!</div>
 
-                <div class="content">
-                    <p>Thanks for signing up to <b>Carino</b>, a car bidding platform built on the ONINO blockchain.</p>
-                    <p>You can check out our smart contract here:<br>
-                        <a href="{CONTRACT_LINK}" target="_blank">{CONTRACT_LINK}</a>
-                    </p>
-                    <p>If you’re a vendor (or want to become one), you can update your account by clicking below:</p>
-                    <p>
-                        <a href="https://carino-three.vercel.app/account" 
-                        class="button" target="_blank">
-                        Account Page
-                        </a>
-                    </p>
-                </div>
-
-                <div class="footer">
-                    <p>Carino &copy; {datetime.now().year}</p>
-                </div>
+            <div class="content">
+                <p>Hello {name.split(" ")[0]},</p>
+                <p>Thanks for signing up to <b>Carino</b>, a car bidding platform built on the ONINO blockchain.</p>
+                <p>You can check out our smart contract here:<br>
+                    <a href="{CONTRACT_LINK}" target="_blank">{CONTRACT_LINK}</a>
+                </p>
+                <p>If you’re a vendor (or want to become one), you can update your account by clicking below:</p>
+                <p>
+                    <a href="https://carino-three.vercel.app/account" 
+                    class="button" target="_blank">
+                    Account Page
+                    </a>
+                </p>
             </div>
-        </body>
-        </html>
-        """
 
+            <div class="footer">
+                <p>Carino &copy; {datetime.now().year}</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
+    try:
         mail.send(msg)
-        session.clear()
-        new_user = User(
-            name=name.capitalize(),
-            email=email,
-            address=address.lower(),
-        )
-        db.session.add(new_user)
-        db.session.commit()
+    except Exception as e:
+        return jsonify({"status": False, "message": f"Error sending email: {str(e)}"})
+    
+    session.clear()
+    new_user = User(
+        name=name.title(),
+        email=email,
+        address=address.lower(),
+    )
+    db.session.add(new_user)
+    db.session.commit()
 
-        folder = os.path.join(os.getcwd(), 'images', new_user.address)
-        os.makedirs(folder, exist_ok=True)
+    folder = os.path.join(os.getcwd(), 'images', new_user.address)
+    os.makedirs(folder, exist_ok=True)
 
-        return jsonify({'status': True, 'message': 'OTP verified successfully'}), 200
-    else:
-        return jsonify({'status': False, 'message': 'Invalid OTP'}), 400
+    return jsonify({'status': True, 'message': 'Account created successfully!'}), 200
+
 
 
 @app.route('/api/update-name', methods=['POST'])
