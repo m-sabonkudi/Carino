@@ -101,7 +101,7 @@ const Auth = () => {
     }
 
       try {
-        const response = await fetch("/api/register-user", {
+        const response = await fetch("/api/create-user", {
            method: "POST",
            credentials: "include",
           headers: {
@@ -118,10 +118,12 @@ const Auth = () => {
         }
 
         if (data.status) {
-          toast.info(`Enter the OTP sent to ${inputs.email}`)
-          setShowRegister(false)
-          setConnectionMessage(`Enter the OTP sent to ${inputs.email}`)
-          return setShowOtp(true)
+            window.location.href = "/?action=registered";
+
+          // toast.info(`Enter the OTP sent to ${inputs.email}`)
+          // setShowRegister(false)
+          // setConnectionMessage(`Enter the OTP sent to ${inputs.email}`)
+          // return setShowOtp(true)
 
         } else {
             toast.error(data.message)
@@ -289,7 +291,7 @@ const Auth = () => {
                 />
               </div>
               <Button type="submit" disabled={loading} className="cursor-pointer w-full mt-4 h-9 text-sm">
-                {loading ? <LoadingButton /> : "Send OTP"}
+                {loading ? <LoadingButton /> : "Create account"}
               </Button>
             </form>
           }
